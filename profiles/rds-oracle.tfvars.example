@@ -1,6 +1,12 @@
+#Name of the S3 bucket to store the terraform state
 bucket_name=vue-us-east-2
+#name of the environment for the terraform deployment. Eg dev|test|cicd|prod
 environment=cicd
+#Primary AZ for the RDS instance
 zones=us-east-2a
+#Primary region for the RDS instance
 region=us-east-2
+#Region for the "cross-region" backup
 region2=us-east-1
+#Identifier for the database to be created/destroyed
 identifier=tf-rds-oracle
