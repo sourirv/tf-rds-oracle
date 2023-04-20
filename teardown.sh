@@ -47,9 +47,6 @@ modules="$(dirname $(readlink -f "${BASH_SOURCE[0]}"))/modules"
 config="$(dirname $(readlink -f "${BASH_SOURCE[0]}"))/configuration/${conf}.txt"
 profile="$(dirname $(readlink -f "${BASH_SOURCE[0]}"))/profiles/${vars}.tfvars"
 
-echo $profile
-echo $modules
-exit 0
 
 ## Setup env vars for terraform
 chmod +x ./setup_env_vars.sh
