@@ -60,10 +60,10 @@ done
 #echo $(dirname "$(readlink -f "${BASH_SOURCE[0]}" || echo "${BASH_SOURCE[0]}")")
 
 
-deployment="$(dirname $(dirname $(readlink -f "${BASH_SOURCE[0]}")) )"
-modules="$(dirname $(dirname $(readlink -f "${BASH_SOURCE[0]}")) )/modules"
-config="$(dirname $(dirname $(readlink -f "${BASH_SOURCE[0]}")) )/configuration/${conf}.txt"
-profile="$(dirname $(dirname $(readlink -f "${BASH_SOURCE[0]}")) )/profiles/${vars}.tfvars"
+deployment="$(dirname $(readlink -f "${BASH_SOURCE[0]}"))"
+modules="$(dirname $(readlink -f "${BASH_SOURCE[0]}"))/modules"
+config="$(dirname $(readlink -f "${BASH_SOURCE[0]}"))/configuration/${conf}.txt"
+profile="$(dirname $(readlink -f "${BASH_SOURCE[0]}"))/profiles/${vars}.tfvars"
 
 ## Setup env vars for terraform
 chmod +x ./setup_env_vars.sh

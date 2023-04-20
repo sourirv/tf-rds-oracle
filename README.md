@@ -1,4 +1,4 @@
-# A terraform module for managing AWS RDS instances for Oracle
+# A terraform module and wrapper shell scripts for managing AWS RDS instances for Oracle
 
 ## Instructions to provision a MultiAZ instance of RDS for Oracle
 ### Pre-requisites
@@ -12,10 +12,7 @@ aws configure
 cp profiles/rds-oracle.tfvars.example profiles/rds-oracle.tfvars
 ```
 #### Edit the the values in the tfvars file appropriately.
-#### Change folders to the scripts ...
-```
-cd scripts
-```
+
 #### Run the deployment script like so ...
 ```
 ./deploy.sh -c all -p rds-oracle
