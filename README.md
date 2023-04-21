@@ -6,6 +6,8 @@
 ```
 aws configure
 ```
+2) An S3 bucket in the region of the DB deployment, for which the aws credentials used in step 1 has get, put and list permissions
+
 ### Create a profile tfvars file using the profiles/rds-oracle.tfvars.example as a reference
 #### For instance
 ```

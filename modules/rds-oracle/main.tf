@@ -79,6 +79,145 @@ module "db" {
   character_set_name = "AL32UTF8"
 
   tags = local.tags
+  parameter_group_name = aws_db_parameter_group.custom.name
+  apply_immediately    = false
+}
+
+resource "random_string" "key_postfix" {
+  length     = 8
+  special    = false
+}
+
+resource "aws_db_parameter_group" "custom" {
+  name   = "custom"
+  family = "oracle-ee-19"
+
+  parameter {
+    name  = "compatible"
+    value = "12.1.0"
+    apply_method = "pending-reboot"
+  }
+  #CANNOT BE MODIFIED
+  #parameter {
+  #  name  = "undo_management"
+  #  value = "AUTO"
+  #  apply_method = "pending-reboot"
+  #}
+  parameter {
+    name  = "undo_tablespace"
+    value = "UNDO"
+  }
+  parameter {
+    name  = "undo_retention"
+    value = "7200"
+  }
+  parameter {
+    name  = "db_files"
+    value = "2000"
+    apply_method = "pending-reboot"
+  }
+  parameter {
+    name  = "MEMORY_TARGET"
+    value = "159383552"
+  }
+  parameter {
+    name  = "java_pool_size"
+    value = "0"
+  }
+  parameter {
+    name  = "log_checkpoint_interval"
+    value = "0"
+  }
+  parameter {
+    name  = "processes"
+    value = "80"
+    apply_method = "pending-reboot"
+  }
+  parameter {
+    name  = "dml_locks"
+    value = "100"
+    apply_method = "pending-reboot"
+  }
+  parameter {
+    name  = "session_cached_cursors"
+    value = "200"
+    apply_method = "pending-reboot"
+  }
+  parameter {
+    name  = "open_cursors"
+    value = "200"
+  }
+  parameter {
+    name  = "CURSOR_SHARING"
+    value = "FORCE"
+  }
+  parameter {
+    name  = "job_queue_processes"
+    value = "10"
+  }
+  parameter {
+    name  = "timed_statistics"
+    value = "true"
+    apply_method = "pending-reboot"
+  }
+  parameter {
+    name  = "max_dump_file_size"
+    value = "10240"
+  }
+  parameter {
+    name  = "global_names"
+    value = "TRUE"
+  }
+  #CANNOT BE MODIFIED
+  #parameter {
+  #  name  = "remote_login_passwordfile"
+  #  value = "exclusive"
+  #  apply_method = "pending-reboot"
+  #}
+  parameter {
+    name  = "optimizer_mode"
+    value = "FIRST_ROWS_10"
+  }
+  parameter {
+    name  = "aq_tm_processes"
+    value = "1"
+  }
+  parameter {
+    name  = "QUERY_REWRITE_INTEGRITY"
+    value = "TRUSTED"
+  }
+  parameter {
+    name  = "QUERY_REWRITE_ENABLED"
+    value = "TRUE"
+  }
+  #NOT SUPPORTED
+  #parameter {
+  #  name  = "_direct_path_insert_features"
+  #  value = "1"
+  #  apply_method = "pending-reboot"
+  #}
+  parameter {
+    name  = "recyclebin"
+    value = "off"
+    apply_method = "pending-reboot"
+  }
+  parameter {
+    name  = "_hash_join_enabled"
+    value = "false"
+    apply_method = "pending-reboot"
+  }
+  parameter {
+    name  = "db_keep_cache_size"
+    value = "20000000"
+  }
+  parameter {
+    name  = "DEFERRED_SEGMENT_CREATION"
+    value = "false"
+  }
+  parameter {
+    name  = "db_securefile"
+    value = "PERMITTED"
+  }
 }
 
 module "db_disabled" {
@@ -118,7 +257,7 @@ resource "aws_db_instance_automated_backups_replication" "default" {
   source_db_instance_arn = module.db.db_instance_arn
   kms_key_id             = module.kms.key_arn
 
-  provider = "aws.region2"
+  provider = aws.region2
 }
 
 

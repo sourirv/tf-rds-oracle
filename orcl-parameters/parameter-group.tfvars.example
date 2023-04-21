@@ -1,0 +1,76 @@
+compatible = 12.1.0
+undo_management=AUTO
+undo_tablespace=UNDO
+undo_retention=7200
+db_files = 2000
+# db_file_multiblock_read_count = 8                                   # SMALL  
+#db_file_multiblock_read_count = 16                                  # MEDIUM 
+# db_file_multiblock_read_count = 32                                  # LARGE  
+# db_block_buffers = 200                                              # SMALL  
+# db_block_buffers = 550                                              # MEDIUM 
+# db_block_buffers = 1220                                             # LARGE  
+MEMORY_TARGET=10000m
+#shared_pool_size = 3500000                                            # SMALL
+#shared_pool_size = 6000000                                          # MEDIUM
+#shared_pool_size = 9000000                                          # LARGE
+#shared_pool_size = 500000000
+java_pool_size = 0
+#sort_area_size = 524288 
+#sort_area_retained_size = 262144 
+#PGA_AGGREGATE_TARGET = 100M
+log_checkpoint_interval = 0
+processes = 50                                                      # SMALL  
+# processes = 300                                                     # MEDIUM 
+# processes = 2000                                                     # LARGE  
+#dml_locks = 100                                                     # SMALL  
+dml_locks = 200                                                     # MEDIUM 
+#dml_locks = 500                                                     # LARGE
+#log_buffer = 8192                                                   # SMALL
+#log_buffer = 32768                                                  # MEDIUM
+# log_buffer = 163840                                                 # LARGE
+#db_writer_processes = %CPUS_NUM%
+#db_block_lru_latches = 6
+#log_simultaneous_copies = 4
+#row_cache_cursors = 200
+session_cached_cursors = 200
+open_cursors = 200
+CURSOR_SHARING = FORCE
+job_queue_processes = 10
+#sequence_cache_entries = 10                                         # SMALL  
+#sequence_cache_entries = 30                                         # MEDIUM 
+#sequence_cache_entries = 100                                        # LARGE  
+#sequence_cache_hash_buckets = 10                                      # SMALL  
+#sequence_cache_hash_buckets = 23                                    # MEDIUM 
+#sequence_cache_hash_buckets = 89                                    # LARGE  
+# audit_trail = true            # if you want auditing
+timed_statistics = true       # if you want timed statistics
+max_dump_file_size = 10240      # limit trace file size to 5 Meg each
+global_names = TRUE
+#mts_dispatchers="ipc,1"
+#mts_dispatchers="tcp,1"
+#mts_max_dispatchers=10
+#mts_servers=2
+#mts_max_servers=10
+#mts_service=%db_sid%
+#mts_listener_address="(ADDRESS=(PROTOCOL=ipc)(KEY=PNPKEY))"
+#mts_listener_address="(ADDRESS=(PROTOCOL=tcp)(HOST=brad)(PORT=1521))"
+#
+# needed if running OPS
+#
+# PARALLEL_SERVER=TRUE
+remote_login_passwordfile=exclusive
+#OPTIMIZER
+optimizer_mode = FIRST_ROWS_10
+aq_tm_processes = 1
+# cause rman use the large pool
+#large_pool_size = 50000000
+# enable the use of function based indexes.
+QUERY_REWRITE_INTEGRITY = TRUSTED
+QUERY_REWRITE_ENABLED = TRUE
+# revert oracle behavior in regarding to append hint
+_direct_path_insert_features = 1
+recyclebin = off
+_hash_join_enabled = false
+db_keep_cache_size=2g
+DEFERRED_SEGMENT_CREATION = false
+db_securefile = PERMITTED
