@@ -10,3 +10,31 @@ region=us-east-2
 region2=us-east-1
 #Identifier for the database to be created/destroyed
 identifier=tf-rds-oracle
+######
+#Oracle custom parameters
+######
+compatible=12.1.0
+undo_tablespace=UNDO_T1
+undo_retention=7200
+db_files = 2000
+#memory_target=IF({DBInstanceClassHugePagesDefault}, 0, {DBInstanceClassMemory*3/4})
+java_pool_size=0
+log_checkpoint_interval=0
+#processes=LEAST({DBInstanceClassMemory/9868951}, 20000)
+dml_locks=100
+session_cached_cursors=200
+open_cursors=200
+CURSOR_SHARING=FORCE
+job_queue_processes=10
+timed_statistics=true
+max_dump_file_size=10240
+global_names=TRUE
+optimizer_mode=FIRST_ROWS_10
+aq_tm_processes=1
+QUERY_REWRITE_INTEGRITY=TRUSTED
+QUERY_REWRITE_ENABLED=TRUE
+recyclebin=OFF
+_hash_join_enabled=false
+db_keep_cache_size=20000000
+DEFERRED_SEGMENT_CREATION=false
+db_securefile=PERMITTED

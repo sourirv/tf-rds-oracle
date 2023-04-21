@@ -94,129 +94,114 @@ resource "aws_db_parameter_group" "custom" {
 
   parameter {
     name  = "compatible"
-    value = "12.1.0"
+    value = var.compatible
     apply_method = "pending-reboot"
   }
-  #CANNOT BE MODIFIED
-  #parameter {
-  #  name  = "undo_management"
-  #  value = "AUTO"
-  #  apply_method = "pending-reboot"
-  #}
+  
   parameter {
     name  = "undo_tablespace"
-    value = "UNDO_T1"
+    value = var.undo_tablespace
   }
   parameter {
     name  = "undo_retention"
-    value = "7200"
+    value = var.undo_retention
   }
   parameter {
     name  = "db_files"
-    value = "2000"
+    value = var.db_files
     apply_method = "pending-reboot"
   }
   parameter {
     name  = "memory_target"
-    value = "IF({DBInstanceClassHugePagesDefault}, 0, {DBInstanceClassMemory*3/4})"
+    value = var.memory_target
   }
   parameter {
     name  = "java_pool_size"
-    value = "0"
+    value = var.java_pool_size
   }
   parameter {
     name  = "log_checkpoint_interval"
-    value = "0"
+    value = var.log_checkpoint_interval
   }
   parameter {
     name  = "processes"
-    value = "LEAST({DBInstanceClassMemory/9868951}, 20000)"
+    value = var.processes
     apply_method = "pending-reboot"
   }
   parameter {
     name  = "dml_locks"
-    value = "100"
+    value = var.dml_locks
     apply_method = "pending-reboot"
   }
   parameter {
     name  = "session_cached_cursors"
-    value = "200"
+    value = var.session_cached_cursors
     apply_method = "pending-reboot"
   }
   parameter {
     name  = "open_cursors"
-    value = "200"
+    value = var.open_cursors
   }
   parameter {
     name  = "CURSOR_SHARING"
-    value = "FORCE"
+    value = var.CURSOR_SHARING
   }
   parameter {
     name  = "job_queue_processes"
-    value = "10"
+    value = var.job_queue_processes
   }
   parameter {
     name  = "timed_statistics"
-    value = "true"
+    value = var.timed_statistics
     apply_method = "pending-reboot"
   }
   parameter {
     name  = "max_dump_file_size"
-    value = "10240"
+    value = var.max_dump_file_size
   }
   parameter {
     name  = "global_names"
-    value = "TRUE"
+    value = var.global_names
   }
-  #CANNOT BE MODIFIED
-  #parameter {
-  #  name  = "remote_login_passwordfile"
-  #  value = "exclusive"
-  #  apply_method = "pending-reboot"
-  #}
+  
   parameter {
     name  = "optimizer_mode"
-    value = "FIRST_ROWS_10"
+    value = var.optimizer_mode
   }
   parameter {
     name  = "aq_tm_processes"
-    value = "1"
+    value = var.aq_tm_processes
   }
   parameter {
     name  = "QUERY_REWRITE_INTEGRITY"
-    value = "TRUSTED"
+    value = var.QUERY_REWRITE_INTEGRITY
   }
   parameter {
     name  = "QUERY_REWRITE_ENABLED"
-    value = "TRUE"
+    value = var.QUERY_REWRITE_ENABLED
   }
-  #NOT SUPPORTED
-  #parameter {
-  #  name  = "_direct_path_insert_features"
-  #  value = "1"
-  #  apply_method = "pending-reboot"
-  #}
+  
   parameter {
     name  = "recyclebin"
-    value = "OFF"
+    value = var.recyclebin
     apply_method = "pending-reboot"
   }
   parameter {
     name  = "_hash_join_enabled"
-    value = "false"
+    value = var._hash_join_enabled
     apply_method = "pending-reboot"
   }
   parameter {
     name  = "db_keep_cache_size"
-    value = "20000000"
+    value = var.db_keep_cache_size
   }
   parameter {
     name  = "DEFERRED_SEGMENT_CREATION"
-    value = "false"
+    value = var.DEFERRED_SEGMENT_CREATION
   }
   parameter {
     name  = "db_securefile"
-    value = "PERMITTED"
+    value = var.db_securefile
   }
 }
 
