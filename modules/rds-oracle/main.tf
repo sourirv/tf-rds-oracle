@@ -19,7 +19,7 @@ data "aws_caller_identity" "current" {}
 data "aws_availability_zones" "available" {}
 
 locals {
-  name    = "complete-oracle"
+  name    = "rds-oracle"
   region  = var.region
   region2 = var.region2
 
@@ -29,8 +29,11 @@ locals {
   tags = {
     Name       = local.name
     Example    = local.name
-    Repository = "https://github.com/terraform-aws-modules/terraform-aws-rds"
+    Repository = "https://github.com/sourirv/tf-rds-oracle"
   }
+
+  timestamp = "${timestamp()}"
+  timestamp_for_postfix = "${replace("${local.timestamp}", "/[- TZ:]/", "")}"
 }
 
 ################################################################################
@@ -55,7 +58,7 @@ module "db" {
   # Make sure that database name is capitalized, otherwise RDS will try to recreate RDS instance every time
   # Oracle database name cannot be longer than 8 characters
   db_name  = "ORACLE"
-  username = "complete_oracle"
+  username = "admin_user"
   port     = 1521
 
   multi_az               = true
@@ -79,17 +82,14 @@ module "db" {
   character_set_name = "AL32UTF8"
 
   tags = local.tags
+  create_db_parameter_group = false
   parameter_group_name = aws_db_parameter_group.custom.name
-  apply_immediately    = false
+  apply_immediately    = true
 }
 
-resource "random_string" "key_postfix" {
-  length     = 8
-  special    = false
-}
 
 resource "aws_db_parameter_group" "custom" {
-  name   = "custom"
+  name   = "custom-${local.timestamp_for_postfix}"
   family = "oracle-ee-19"
 
   parameter {
@@ -105,7 +105,7 @@ resource "aws_db_parameter_group" "custom" {
   #}
   parameter {
     name  = "undo_tablespace"
-    value = "UNDO"
+    value = "UNDO_T1"
   }
   parameter {
     name  = "undo_retention"
@@ -117,8 +117,8 @@ resource "aws_db_parameter_group" "custom" {
     apply_method = "pending-reboot"
   }
   parameter {
-    name  = "MEMORY_TARGET"
-    value = "159383552"
+    name  = "memory_target"
+    value = "IF({DBInstanceClassHugePagesDefault}, 0, {DBInstanceClassMemory*3/4})"
   }
   parameter {
     name  = "java_pool_size"
@@ -130,7 +130,7 @@ resource "aws_db_parameter_group" "custom" {
   }
   parameter {
     name  = "processes"
-    value = "80"
+    value = "LEAST({DBInstanceClassMemory/9868951}, 20000)"
     apply_method = "pending-reboot"
   }
   parameter {
@@ -198,7 +198,7 @@ resource "aws_db_parameter_group" "custom" {
   #}
   parameter {
     name  = "recyclebin"
-    value = "off"
+    value = "OFF"
     apply_method = "pending-reboot"
   }
   parameter {
